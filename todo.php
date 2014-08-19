@@ -12,24 +12,21 @@
      // [2] TODO item 2 - blah
      // DO NOT USE ECHO, USE RETURN
     $list_to_print = "";
-    foreach ($list as $key => $item) {
-        $key++;
-        $list_to_print .= "[$key] $item" . PHP_EOL;
+    if (empty($list)) {
+            $list_to_print = "Empty TODO List" . PHP_EOL;
+    } else {
+        foreach ($list as $key => $item) {
+            $list_to_print .= "[" . ++$key . "] $item" . PHP_EOL;
+        }
     }
+    
     return $list_to_print;
  }
 
  // Get STDIN, strip whitespace and newlines, 
  // and convert to uppercase if $upper is true
- function get_input($upper = FALSE) 
- {
-     // Return filtered STDIN input
-    if ($upper) {
-        return strtoupper(trim(fgets(STDIN)));
-    } else {
-        return trim(fgets(STDIN));    
-    }
-    
+ function get_input($menu_input = FALSE) {
+   return ($menu_input ? substr(strtoupper(trim(fgets(STDIN))), 0, 1) : trim(fgets(STDIN)));  
  }
 
  // The loop!
