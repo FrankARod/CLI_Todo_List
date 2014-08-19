@@ -24,14 +24,14 @@ do {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        $items[] = strtoupper(trim(fgets(STDIN)));
+        $items[] = trim(fgets(STDIN));
     } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
-        $key = strtoupper(trim(fgets(STDIN)));
-        // Remove from array
-        unset($items[--$key]);
+        $key = trim(fgets(STDIN));
+        $key--;// Remove from array
+        unset($items[$key]);
         $items = array_values($items); // resets array index
     }
 // Exit when input is (Q)uit
