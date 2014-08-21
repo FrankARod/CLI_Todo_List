@@ -46,13 +46,22 @@ function sort_menu($list){
     return $list;
 }
 
+function add_file($filepath, $items) {
+    $handle = fopen($filepath, 'r');
+    $saved_list = trim(fread($handle, filesize($filepath)));
+    $old_list = implode("\n", $items);
+    $old_list .= $saved_list;
+    $new_list = explode("\n", $old_list);
+    return $new_list;
+}
+
 // The loop!
 do {
     // Echo the list produced by the function
     echo list_items($items);
 
     // Show the menu options
-    echo '(N)ew item, (S)ort, (R)emove item, (Q)uit : ';
+    echo '(N)ew item, (O)pen, (S)ort, (R)emove item, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -91,6 +100,9 @@ do {
         array_shift($items);
     } elseif ($input == 'L') {
         array_pop($items);
+    } elseif ($input == 'O') {
+        $filepath = get_input();
+        $items = add_file($filepath, $items);
     } else {
         echo 'Invalid input' . PHP_EOL;
     }
