@@ -54,13 +54,20 @@ function add_file($filepath, $old_list) {
     return array_merge($old_list, $new_list);
 }
 
+function create_file($filename, $items) {
+    $items = implode("\n", $items);
+    $handle = fopen($filename, 'w');
+    fwrite($handle, $items);
+    fclose($handle);
+}
+
 // The loop!
 do {
     // Echo the list produced by the function
     echo list_items($items);
 
     // Show the menu options
-    echo '(N)ew item, (O)pen, (S)ort, (R)emove item, (Q)uit : ';
+    echo '(N)ew item, (O)pen, s(A)ve, (S)ort, (R)emove item, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -111,9 +118,20 @@ do {
         break;
 
         case 'O':
+            echo "Enter a file to add to the list" . PHP_EOL;
             $filepath = get_input();
             $items = add_file($filepath, $items);
             break;
+
+        case 'A':
+            echo "Enter a filename for the list" . PHP_EOL;
+            $filename = get_input();
+            create_file($filename, $items);
+
+        case 'Q':
+             // Say Goodbye!
+            echo "Goodbye!" . PHP_EOL;
+            break;    
 
         default: 
             echo 'Invalid input' . PHP_EOL;
@@ -122,8 +140,8 @@ do {
  // Exit when input is (Q)uit
 } while ($input != 'Q');
 
- // Say Goodbye!
-echo "Goodbye!" . PHP_EOL;
+
+
 
 // Exit with 0 errors
 exit(0);
