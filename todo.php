@@ -47,9 +47,11 @@ function sort_menu($list){
 }
 
 function add_file($filepath, $old_list) {
-    $handle = fopen($filepath, 'r');
-    $saved_list = trim(fread($handle, filesize($filepath))); 
-    return array_merge($old_list, explode("\n", $saved_list)); // converts saved list to array and merges with old list
+    /*$handle = fopen($filepath, 'r');
+    $saved_list = trim(fread($handle, filesize($filepath))); */
+
+    $new_list = file($filepath, FILE_IGNORE_NEW_LINES);
+    return array_merge($old_list, $new_list);
 }
 
 // The loop!
