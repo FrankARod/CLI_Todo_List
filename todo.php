@@ -62,13 +62,14 @@ function create_file($filename, $items) {
             case "Y":
                 break;
             case "N":
-                return 0;
+                return "Save Canceled";
         }
     }
     $items = implode("\n", $items);
     $handle = fopen($filename, 'w');
     fwrite($handle, $items);
     fclose($handle);
+    return "Save Successful";
 }
 
 // The loop!
@@ -136,7 +137,8 @@ do {
         case 'A':
             echo "Enter a filename for the list" . PHP_EOL;
             $filename = get_input();
-            create_file($filename, $items);
+            echo create_file($filename, $items) . PHP_EOL;
+            break;
 
         case 'Q':
              // Say Goodbye!
