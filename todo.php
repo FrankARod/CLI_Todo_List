@@ -46,13 +46,10 @@ function sort_menu($list){
     return $list;
 }
 
-function add_file($filepath, $items) {
+function add_file($filepath, $old_list) {
     $handle = fopen($filepath, 'r');
-    $saved_list = trim(fread($handle, filesize($filepath)));
-    $old_list = implode("\n", $items);
-    $old_list .= $saved_list;
-    $new_list = explode("\n", $old_list);
-    return $new_list;
+    $saved_list = trim(fread($handle, filesize($filepath))); 
+    return array_merge($old_list, explode("\n", $saved_list)); // converts saved list to array and merges with old list
 }
 
 // The loop!
