@@ -65,14 +65,18 @@ do {
         // Add entry to list array
         $new_item = get_input();
         echo "Place at (B)eginning or (E)nd of List? ";
-        $placement = get_input(TRUE);
-        if ($placement == 'B') {
-            array_unshift($items, $new_item);
-        } elseif ($placement == 'E') {
-            array_push($items, $new_item);
-        } else {
-            array_push($items, $new_item);
+        switch(get_input(TRUE)) {
+            case 'B':
+                array_unshift($items, $new_item);
+                break;
+            case 'E': 
+                array_push($items, $new_item);
+                break;
+            default:
+                array_push($items, $new_item);
+                break;
         }
+
     } elseif ($input == 'R') {
          // Remove which item?
         echo 'Enter item number to remove: ';
