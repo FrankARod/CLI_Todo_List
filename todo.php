@@ -65,43 +65,57 @@ do {
     $input = get_input(TRUE);
 
     // Check for actionable input
-    if ($input == 'N') {
-        // Ask for entry
-        echo 'Enter item: ';
-        // Add entry to list array
-        $new_item = get_input();
-        echo "Place at (B)eginning or (E)nd of List? ";
-        switch(get_input(TRUE)) {
-            case 'B':
-                array_unshift($items, $new_item);
-                break;
-            case 'E': 
-                array_push($items, $new_item);
-                break;
-            default:
-                array_push($items, $new_item);
-                break;
-        }
 
-    } elseif ($input == 'R') {
-         // Remove which item?
-        echo 'Enter item number to remove: ';
-        // Get array key
-        $key = get_input();
-        // Remove from array
-        unset($items[--$key]);
-    } elseif($input == 'S') {
-        echo "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered" . PHP_EOL;
-        $items = sort_menu($items);
-    } elseif ($input == 'F') {
-        array_shift($items);
-    } elseif ($input == 'L') {
-        array_pop($items);
-    } elseif ($input == 'O') {
-        $filepath = get_input();
-        $items = add_file($filepath, $items);
-    } else {
-        echo 'Invalid input' . PHP_EOL;
+    switch($input) {
+        case 'N':
+            // Ask for entry
+            echo 'Enter item: ';
+            // Add entry to list array
+            $new_item = get_input();
+            echo "Place at (B)eginning or (E)nd of List? ";
+            switch(get_input(TRUE)) {
+                case 'B':
+                    array_unshift($items, $new_item);
+                    break;
+                case 'E': 
+                    array_push($items, $new_item);
+                    break;
+                default:
+                    array_push($items, $new_item);
+                    break;
+            }
+            break;
+        
+        case 'R':
+            // Remove which item?
+            echo 'Enter item number to remove: ';
+            // Get array key
+            $key = get_input();
+            // Remove from array
+            unset($items[--$key]);
+            break;
+
+        case 'S':
+            echo "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered" . PHP_EOL;
+            $items = sort_menu($items);
+            break;
+
+        case 'F':
+            array_shift($items);
+        break;
+
+        case 'L':
+            array_pop($items);
+        break;
+
+        case 'O':
+            $filepath = get_input();
+            $items = add_file($filepath, $items);
+            break;
+
+        default: 
+            echo 'Invalid input' . PHP_EOL;
+            break;
     }
  // Exit when input is (Q)uit
 } while ($input != 'Q');
