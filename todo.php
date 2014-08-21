@@ -55,6 +55,16 @@ function add_file($filepath, $old_list) {
 }
 
 function create_file($filename, $items) {
+    if (file_exists($filename)) {
+        echo "$filename exists! Overwrite?" . PHP_EOL . "(Y)es or (N)o" . PHP_EOL;
+        $input = get_input(true);
+        switch($input) {
+            case "Y":
+                break;
+            case "N":
+                return 0;
+        }
+    }
     $items = implode("\n", $items);
     $handle = fopen($filename, 'w');
     fwrite($handle, $items);
